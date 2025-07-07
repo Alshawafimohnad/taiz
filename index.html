@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>المملكة - لعالم البلايستيشن</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: white;
+            background: url('data:image/jpeg;base64,iVBORw0KGgouLi4=') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .main-text {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px 20px;
+            font-size: 28px;
+            font-weight: bold;
+            line-height: 1.8;
+            margin: 50px 20px 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .footer-text {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 25px 15px;
+            font-size: 20px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-text">
+        المملكة للإلكترونيات والبرمجيات وعالم البلايستيشن<br>
+        العنوان: تعز المدينة - أعلى مطعم السعيد - جوار تاباتيك<br>
+        تلفون: 770697425 - 774471818 - 730081955<br><br>
+        نتمنى لكم قضاء أحلى الأوقات<br>
+        تابعونا - المملكة كل ما تحتاجه في عالم الألعاب الالكترونية تحت سقف واحد
+    </div>
+
+    <div class="footer-text">
+        يتوفر لدينا جميع أجهزة البلايستيشن<br>
+        والألعاب الجديدة والمستخدمة<br>
+        مع توفر قسم خاص للصيانة بأحدث التقنيات الحديثة<br>
+        نتمنى لكم قضاء أحلى الأوقات
+    </div>
+
+    <script>
+        // تسجيل Service Worker لتفعيل الوضع أوفلاين
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log("Service Worker تم تسجيله بنجاح"))
+                .catch(error => console.error("فشل في تسجيل Service Worker:", error));
+        }
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>المملكة للإلكترونيات والبرمجيات</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+      background-image: url('https://i.postimg.cc/zBNzvn3H/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+    }
+
+    .main-text {
+      background-color: rgba(0, 0, 0, 0.7);
+      font-size: 32px;
+      font-weight: bold;
+      margin: auto;
+      padding: 20px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 900px;
+    }
+
+    .footer-text {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      font-size: 20px;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-text">
+    المملكة للإلكترونيات والبرمجيات وعالم البلايستيشن<br>
+    العنوان: تعز المدينة، أعلى مطعم السعيد<br>
+    تلفون: 770697425 - 774471818 - 730081955
+  </div>
+
+  <div class="footer-text">
+    يتوفر لدينا جميع أجهزة البلايستيشن والألعاب الجديدة والمستخدمة مع توفر قسم خاص للصيانة هاردوير وسوفتوير بأحدث التقنيات الحديثة<br>
+    نتمنى لكم قضاء أحلى الأوقات
+  </div>
+
+</body>
+</html>
