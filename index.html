@@ -1,0 +1,322 @@
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>المملكة للإلكترونيات والبرمجيات - PSFree Exploit For PS4 9.00</title>
+        <style>
+            @font-face {
+                font-family: 'logging';
+                src: url('fonts/LiberationMono-Regular.ttf');
+            }
+            #console {
+                font-family: 'logging';
+            }
+
+            /* --- تنسيقات CSS لصفحة "المملكة للإلكترونيات" --- */
+            /* استيراد خطوط Google Fonts */
+            @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap');
+
+            :root {
+                --dark-bg-color: #0c0c0c;
+                --container-bg-color: #1a1a1a;
+                --primary-highlight: #00bcd4; /* أزرق سماوي */
+                --secondary-highlight: #ff6f00; /* برتقالي ساطع */
+                --accent-color: #8bc34a; /* أخضر مميز */
+                --text-color: #e0e0e0;
+                --border-color: #3a3a3a;
+                --shadow-color: rgba(0, 0, 0, 0.7);
+            }
+
+            html, body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100vh; /* تحديد الارتفاع ليكون 100% من ارتفاع الشاشة */
+                overflow: hidden; /* **إخفاء شريط التمرير** */
+                background: linear-gradient(135deg, var(--dark-bg-color) 0%, #1a1a1a 100%);
+                color: var(--text-color);
+                font-family: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
+                text-align: center;
+                position: relative;
+                display: flex; /* استخدام Flexbox لتوزيع المحتوى */
+                flex-direction: column; /* ترتيب العناصر عمودياً */
+                justify-content: center; /* توسيط المحتوى عمودياً */
+                align-items: center; /* توسيط المحتوى أفقياً */
+            }
+
+            /* تأثير الجسيمات الخفيفة في الخلفية - يطبق على الجسم بأكمله */
+            body::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                            radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+                animation: background-pan 60s linear infinite alternate;
+                z-index: 0;
+                pointer-events: none;
+            }
+
+            @keyframes background-pan {
+                0% { background-position: 0% 0%, 100% 100%; }
+                100% { background-position: 100% 100%, 0% 0%; }
+            }
+
+            /* تنسيقات قسم PSFree الأصلي لجعله صغيراً جداً */
+            .psfree-section {
+                padding: 5px; /* تقليل الحشوة الداخلية */
+                color: #f0f0f0;
+                background-color: #2a2a2a;
+                border-top: 1px solid #444; /* تغيير من border-bottom إلى border-top للحفاظ على الحدود */
+                margin-top: 5px; /* تقليل المسافة العلوية */
+                margin-bottom: 5px; /* تقليل المسافة السفلية */
+                font-size: 0.7em; /* تصغير حجم الخط بشكل ملحوظ */
+                width: fit-content;
+                max-width: 95%; /* زيادة العرض الأقصى قليلاً ليناسب شاشات أوسع */
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 8px;
+                flex-shrink: 0; /* منع هذا العنصر من الانكماش أكثر من اللازم */
+            }
+            .psfree-section a {
+                color: #00bcd4;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+            .psfree-section a:hover {
+                color: #ff6f00;
+            }
+            #console {
+                background-color: #000;
+                color: #0f0;
+                padding: 3px; /* تقليل الحشوة الداخلية للـ console */
+                border-radius: 3px;
+                margin-top: 3px; /* تقليل المسافة العلوية */
+                white-space: pre-wrap;
+                text-align: left;
+                font-size: 0.6em; /* تصغير حجم خط الـ console أكثر */
+                max-height: 50px; /* تحديد أقصى ارتفاع للكونسول */
+                overflow: auto; /* إضافة شريط تمرير إذا زاد محتوى الكونسول */
+            }
+
+            /* تنسيقات حاوية "المملكة للإلكترونيات" */
+            .kingdom-electronics-container {
+                background-color: var(--container-bg-color);
+                border-radius: 15px; /* تقليل الدائرية قليلاً */
+                padding: 25px; /* **تقليل الحشوة الداخلية بشكل كبير** */
+                box-shadow: 0 10px 30px var(--shadow-color); /* تقليل الظل قليلاً */
+                max-width: 700px; /* تقليل العرض الأقصى قليلاً */
+                width: calc(100% - 30px); /* تقليل العرض بمقدار ال padding الجديد */
+                margin: 15px auto; /* تقليل المسافة العلوية والسفلية */
+                border: 1px solid var(--border-color);
+                position: relative;
+                z-index: 1;
+                opacity: 0;
+                transform: translateY(20px);
+                animation: fadeInScale 1s ease-out forwards;
+                box-sizing: border-box;
+                flex-grow: 1; /* السماح لهذا العنصر بالنمو لملء المساحة */
+                display: flex; /* استخدام flexbox داخلياً لتوزيع المحتوى */
+                flex-direction: column;
+                justify-content: center; /* توسيط المحتوى داخل الحاوية */
+            }
+
+            @keyframes fadeInScale {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .kingdom-electronics-container h1 {
+                color: var(--primary-highlight);
+                margin-bottom: 15px; /* تقليل الهامش السفلي */
+                font-size: 2.2em; /* **تقليل حجم الخط الرئيسي** */
+                font-weight: 700;
+                text-shadow: 0 0 10px rgba(0, 188, 212, 0.8);
+                letter-spacing: 0.5px; /* تقليل تباعد الأحرف */
+            }
+
+            .kingdom-electronics-container h1::after {
+                width: 60px; /* تقليل عرض الخط السفلي */
+                height: 2px; /* تقليل سمك الخط السفلي */
+                margin: 10px auto 0; /* تقليل الهامش */
+            }
+
+            .kingdom-electronics-container p {
+                margin-bottom: 10px; /* تقليل الهامش السفلي */
+                font-size: 1em; /* **تقليل حجم الخط** */
+                line-height: 1.5; /* تقليل تباعد الأسطر */
+                font-weight: 400;
+            }
+
+            .kingdom-electronics-container .section-title {
+                color: var(--secondary-highlight);
+                font-size: 1.2em; /* **تقليل حجم الخط** */
+                margin-top: 15px; /* تقليل الهامش العلوي */
+                margin-bottom: 8px; /* تقليل الهامش السفلي */
+                font-weight: 700;
+                padding-bottom: 3px;
+            }
+
+            .kingdom-electronics-container .section-title::after {
+                width: 40px; /* تقليل عرض الخط السفلي */
+                height: 1px; /* تقليل سمك الخط السفلي */
+                margin: 3px auto 0;
+            }
+
+            .kingdom-electronics-container .contact-info strong {
+                font-size: 1.1em; /* تقليل حجم الخط */
+                margin-top: 5px; /* تقليل الهامش العلوي */
+            }
+
+            .kingdom-electronics-container .description-list {
+                margin-top: 10px; /* تقليل الهامش العلوي */
+            }
+
+            .kingdom-electronics-container .description-list li {
+                margin-bottom: 5px; /* تقليل الهامش السفلي */
+                padding: 8px 15px; /* تقليل الحشوة الداخلية */
+                border-radius: 8px;
+                border-left: 3px solid var(--accent-color); /* تقليل سمك الحدود */
+                font-size: 0.9em; /* **تقليل حجم الخط** */
+            }
+
+            .kingdom-electronics-container .motto {
+                margin-top: 20px; /* تقليل الهامش العلوي */
+                font-size: 0.9em; /* تقليل حجم الخط */
+                padding-top: 15px; /* تقليل الحشوة العلوية */
+            }
+
+            /* Responsive adjustments - يجب أن تكون القيم أصغر هنا أيضاً */
+            @media (max-width: 768px) {
+                .kingdom-electronics-container {
+                    padding: 20px;
+                    margin: 10px auto;
+                }
+                .kingdom-electronics-container h1 {
+                    font-size: 1.8em;
+                }
+                .kingdom-electronics-container .section-title {
+                    font-size: 1.1em;
+                }
+                .kingdom-electronics-container p {
+                    font-size: 0.9em;
+                }
+                .kingdom-electronics-container .contact-info strong {
+                    font-size: 1em;
+                }
+                .kingdom-electronics-container .motto {
+                    font-size: 0.85em;
+                }
+                /* PSFree adjustments for smaller screens */
+                .psfree-section {
+                    font-size: 0.65em;
+                    padding: 4px;
+                }
+                #console {
+                    font-size: 0.55em;
+                    padding: 2px;
+                    max-height: 40px; /* تقليل ارتفاع الكونسول على الجوال */
+                }
+            }
+
+            @media (max-width: 480px) {
+                .kingdom-electronics-container {
+                    padding: 15px;
+                    margin: 5px auto;
+                }
+                .kingdom-electronics-container h1 {
+                    font-size: 1.5em;
+                    margin-bottom: 10px;
+                }
+                .kingdom-electronics-container h1::after {
+                    width: 50px;
+                    margin: 8px auto 0;
+                }
+                .kingdom-electronics-container p {
+                    font-size: 0.8em;
+                    margin-bottom: 8px;
+                }
+                .kingdom-electronics-container .section-title {
+                    font-size: 1em;
+                    margin-top: 10px;
+                    margin-bottom: 5px;
+                }
+                .kingdom-electronics-container .contact-info strong {
+                    font-size: 0.9em;
+                    margin-top: 3px;
+                }
+                .kingdom-electronics-container .description-list li {
+                    padding: 6px 10px;
+                    font-size: 0.8em;
+                }
+                .kingdom-electronics-container .motto {
+                    font-size: 0.75em;
+                    margin-top: 15px;
+                    padding-top: 10px;
+                }
+                /* PSFree adjustments for very small screens */
+                .psfree-section {
+                    font-size: 0.6em;
+                    padding: 3px;
+                }
+                #console {
+                    font-size: 0.5em;
+                    padding: 1px;
+                    max-height: 30px; /* تقليل ارتفاع الكونسول أكثر */
+                }
+            }
+            /* --- نهاية تنسيقات CSS لصفحة "المملكة للإلكترونيات" --- */
+        </style>
+        <script>
+        if (window.applicationCache.status=='0')
+        {
+          window.location.replace("cache.html");
+        }
+        </script>
+    </head>
+    <body>
+        <div class="kingdom-electronics-container">
+            <h1>المملكة للإلكترونيات والبرمجيات<br>وعالم البلايستيشن</h1>
+
+            <p>
+                موقعنا في قلب <span class="highlight">تعز</span>، المدينة، تحديداً <span class="highlight">أعلى مطعم السعيد</span>.
+                نسعى لتقديم أفضل تجربة لعشاق التكنولوجيا والألعاب.
+            </p>
+
+            <h2 class="section-title">تواصل معنا</h2>
+            <p class="contact-info">
+                للاستفسارات والدعم الفني، يرجى الاتصال على الأرقام التالية:
+                <strong>770697425</strong>
+                <strong>774471818</strong>
+                <strong>730081955</strong>
+            </p>
+
+            <h2 class="section-title">ماذا نقدم؟</h2>
+            <ul class="description-list">
+                <li>
+                    <span class="highlight">جميع أجهزة الكونسل والبلايستيشن:</span> سواء كانت جديدة كلياً أو مستخدمة بحالة ممتازة.
+                </li>
+                <li>
+                    <span class="highlight">أحدث الألعاب والإكسسوارات:</span> مكتبة متكاملة من الألعاب وأجود الإكسسوارات لتعزيز تجربتك.
+                </li>
+                <li>
+                    <span class="highlight">قسم صيانة متخصص:</span> صيانة سوفتوير وهاردوير بأحدث التقنيات والأجهزة لضمان أفضل أداء لأجهزتك.
+                </li>
+            </ul>
+
+            <p class="motto">نتمنى لكم قضاء أجمل الأوقات معنا في عالم التكنولوجيا والألعاب!</p>
+        </div>
+        <div class="psfree-section">
+            PSFree: A PS4/PS5 Exploit Chain
+            <br>
+            <br>
+            See <a href='./about.html' data-jslicense='1'>JavaScript license information</a> for the
+            source code and license.<br>
+            <pre id='console'></pre>
+        </div>
+        </body>
+    <script type='module' src='./alert.mjs'></script>
+</html>
